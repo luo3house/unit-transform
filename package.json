@@ -4,14 +4,16 @@
   "description": "Celsius 2 Fahrenheit unit transformer",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "license": "MIT",
   "author": "luoyz <luoyz2349@outlook.com>",
   "private": false,
   "scripts": {
+    "build:types": "tsc",
     "build:cjs": "babel --config-file ./.babelrc.cjs.json --extensions '.ts' --source-maps -d dist/cjs/ src/",
     "build:esm": "babel --config-file ./.babelrc.esm.json --extensions '.ts' --source-maps -d dist/esm/ src/",
     "build:umd": "rollup -c rollup.config.ts",
-    "build": "rimraf -rf ./dist && yarn build:cjs && yarn build:esm && yarn build:umd",
+    "build": "rimraf -rf ./dist && yarn build:cjs && yarn build:esm && yarn build:umd && yarn build:types",
     "prepare": "husky install"
   },
   "devDependencies": {
