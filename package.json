@@ -8,6 +8,9 @@
   "license": "MIT",
   "author": "luoyz <luoyz2349@outlook.com>",
   "private": false,
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build:types": "tsc",
     "build:cjs": "babel --config-file ./.babelrc.cjs.json --extensions '.ts' --source-maps -d dist/cjs/ src/",
