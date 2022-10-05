@@ -11,6 +11,13 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "scripts": {
     "build:types": "tsc",
     "build:cjs": "babel --config-file ./.babelrc.cjs.json --extensions '.ts' --source-maps -d dist/cjs/ src/",
