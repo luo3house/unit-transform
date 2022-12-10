@@ -1,6 +1,6 @@
 {
   "name": "unit-transform",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Celsius 2 Fahrenheit unit transformer",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
