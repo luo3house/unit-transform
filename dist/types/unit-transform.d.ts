@@ -1,4 +1,4 @@
-declare type TransformOptions = {
+type TransformOptions = {
     /**
      * 端点传输倍数，即保留N位小数
      * @example 端点值 56，传输倍数 0，则界面应显示 56

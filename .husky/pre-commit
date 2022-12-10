@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-yarn jest  && \
-yarn build && \
+npm run test  && \
+npm run build && \
 git add dist/

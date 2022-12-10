@@ -1,4 +1,4 @@
-import createUnitTransform from '../src'
+import { createUnitTransform } from '../src'
 
 test('c2f', () => {
   const units = createUnitTransform({ scale: 0, unit: 'c' })

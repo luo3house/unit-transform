@@ -1,29 +1,69 @@
 import { defineConfig } from 'rollup'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
-import { babel } from '@rollup/plugin-babel'
-import { terser } from 'rollup-plugin-terser'
-// @ts-ignore
-import bundleSize from 'rollup-plugin-bundle-size'
+import swc from 'rollup-plugin-swc3'
+import path from 'path'
 
-export default defineConfig({
-  input: './src/index.ts',
-  output: [
-    {
-      file: './dist/unit_transform.umd.js',
-      format: 'umd',
-      name: 'unit_transform',
-      sourcemap: 'inline',
+const input = './src/index.ts'
+const outDir = './dist'
+const name = 'unit_transform'
+const fileName = 'index'
+
+function buildCJS() {
+  return defineConfig({
+    input: input,
+    output: {
+      file: path.join(outDir, `${fileName}.cjs`),
+      format: 'cjs',
     },
-    {
-      file: './dist/unit_transform.umd.min.js',
-      format: 'umd',
-      name: 'unit_transform',
-      plugins: [terser()],
+    plugins: [
+      // plugins.resolve,
+      swc({
+        jsc: {
+          target: 'es5',
+          parser: { syntax: 'typescript', tsx: false },
+        },
+      }),
+    ],
+  })
+}
+
+function buildESM() {
+  return defineConfig({
+    input: input,
+    output: {
+      file: path.join(outDir, `${fileName}.mjs`),
+      format: 'esm',
     },
-  ],
-  plugins: [
-    bundleSize(),
-    nodeResolve({ extensions: ['.ts'] }),
-    babel({ extensions: ['.ts'] }),
-  ],
-})
+    plugins: [
+      // plugins.resolve,
+      swc({
+        jsc: {
+          target: 'es2015',
+          parser: { syntax: 'typescript', tsx: false },
+        },
+      }),
+    ],
+  })
+}
+
+function buildIIFE() {
+  return defineConfig({
+    input: input,
+    output: {
+      file: path.join(outDir, `${fileName}.iife.js`),
+      format: 'iife',
+      name,
+    },
+    plugins: [
+      // plugins.resolve,
+      swc({
+        jsc: {
+          target: 'es5',
+          parser: { syntax: 'typescript', tsx: false },
+        },
+        minify: true,
+      }),
+    ],
+  })
+}
+
+export default defineConfig([buildCJS(), buildESM(), buildIIFE()])
